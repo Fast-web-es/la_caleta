@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+
+    <!-- Anti-glitch: marca el documento como "cargando fuentes" antes del primer
+         paint para poder ocultar el contenido hasta que esté todo listo. -->
+    <script>document.documentElement.className += ' fonts-loading';</script>
+
+    <!-- SEO: canonical estático (Googlebot lo lee sin depender de JS).
+         TODO: cuando el cliente cree su cuenta de Google Search Console, pegar aquí
+         su etiqueta <meta name="google-site-verification" ...>. -->
+    <link rel="canonical" href="https://restaurantearrocerialacaleta.com/">
+
+    <!-- PWA & Mobile Capabilites -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <!-- Performance: Preconnect to critical assets -->
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Body auto-hospedado (Inter, above-the-fold). -->
+    <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- Títulos: serif clásica (look tradicional de arrocería). -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap">
+    
+    <!-- Title inicial (SEO.tsx lo reafirma en runtime) -->
+    <title>Restaurante La Caleta | Arrocería en Ciudad Real</title>
+    <meta name="description" content="Arrocería en el centro de Ciudad Real desde el año 2000. Paellas, arroces y cocina mediterránea. Menú del día, comida para llevar y grupos.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="mask-icon" href="/logo.svg" color="#B23A2E">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['var(--font-display)', 'Playfair Display', 'Georgia', 'serif'],
+              serif: ['Playfair Display', 'Georgia', 'serif'],
+              brand: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              brand: {
+                red: 'var(--theme-primary)', // Dynamic Color from SEO.tsx
+                black: 'var(--theme-secondary)',
+              }
+            },
+            animation: {
+              'marquee': 'marquee 25s linear infinite',
+              'marquee-reverse': 'marquee-reverse 25s linear infinite',
+              'spin-slow': 'spin 8s linear infinite',
+            },
+            keyframes: {
+              marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-100%)' },
+              },
+              'marquee-reverse': {
+                '0%': { transform: 'translateX(-100%)' },
+                '100%': { transform: 'translateX(0%)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* === Fuentes auto-hospedadas (subset latin, woff2) ===
+         Inter y Oswald son fuentes variables: un solo fichero cubre todo el
+         rango de pesos. Si en data.ts cambias theme.fontDisplay a otra fuente,
+         añade aquí su @font-face y su .woff2 en /public/fonts. */
+      @font-face {
+        font-family: 'Bebas Neue';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('/fonts/bebas-neue-400.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url('/fonts/inter-variable.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Oswald';
+        font-style: normal;
+        font-weight: 200 700;
+        font-display: swap;
+        src: url('/fonts/oswald-variable.woff2') format('woff2');
+      }
+
+      /* Tipografía de títulos disponible desde el primer byte. Antes la inyectaba
+         SEO.tsx (React) y eso provocaba un salto extra al montar la app. */
+      :root { --font-display: 'Playfair Display', Georgia, serif; }
+
+      /* === Anti-glitch de arranque (cloak) ===
+         El contenido arranca invisible y hace fade-in cuando las fuentes y los
+         estilos están listos. Enmascara a la vez el salto de tipografía (FOUT)
+         y el flash mientras Tailwind (CDN) aplica los estilos (FOUC). */
+      #root { opacity: 1; transition: opacity .28s ease-in; }
+      html.fonts-loading #root { opacity: 0; }
+
+      html { scroll-behavior: smooth; }
+      
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      
+      .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+      .pt-safe { padding-top: env(safe-area-inset-top); }
+
+      /* Animation Utilities mimicking tailwindcss-animate */
+      @keyframes slideInRight {
+        from { transform: translateX(100%); }
+        to { transform: translateX(0); }
+      }
+      @keyframes slideInBottom {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      
+      .animate-in {
+        animation-duration: 300ms;
+        animation-fill-mode: both;
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .slide-in-from-right {
+        animation-name: slideInRight;
+      }
+      
+      .slide-in-from-bottom {
+        animation-name: slideInBottom;
+      }
+      
+      .fade-in {
+        animation-name: fadeIn;
+      }
+    </style>
+    <!-- Sin JS no podemos saber cuándo cargan las fuentes: mostramos el contenido igualmente. -->
+    <noscript><style>html.fonts-loading #root { opacity: 1 !important; }</style></noscript>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.10.1",
+    "lucide-react": "https://esm.sh/lucide-react@^0.561.0",
+    "path": "https://esm.sh/path@^0.12.7",
+    "url": "https://esm.sh/url@^0.11.4",
+    "vite": "https://esm.sh/vite@^7.2.7",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
+  }
+}
+</script>
+</head>
+  <body class="bg-[#F6EEDD] text-[#3A2C20] antialiased">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+# Build output
+dist/
+
+# Marketing assets
+marketing/
+
+# Claude config
+.claude/
+
+# Dependencies
+node_modules/

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="La Caleta">
+  <rect width="512" height="512" rx="104" fill="#B23A2E"/>
+  <circle cx="256" cy="256" r="176" fill="#F6EEDD"/>
+  <circle cx="256" cy="256" r="176" fill="none" stroke="#33261B" stroke-opacity="0.12" stroke-width="6"/>
+  <text x="256" y="258" text-anchor="middle" dominant-baseline="central"
+        font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="248" fill="#B23A2E">C</text>
+</svg>

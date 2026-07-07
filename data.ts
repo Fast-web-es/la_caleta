@@ -252,41 +252,53 @@ export const CATEGORIES: string[] = [
  */
 export const MENU_DATA: Product[] = [
   // ---------------- PARA EMPEZAR ----------------
-  { id: 101, category: "Para empezar", name: "Ensalada de La Caleta", description: "// TODO: carta real", price: 0, image: "" },
-  { id: 102, category: "Para empezar", name: "Croquetas caseras", description: "// TODO: carta real", price: 0, image: "" },
-  { id: 103, category: "Para empezar", name: "Pimientos de Padrón", description: "// TODO: carta real", price: 0, image: "" },
-  { id: 104, category: "Para empezar", name: "Gambas al ajillo", description: "// TODO: carta real", price: 0, image: "" },
+  { id: 101, category: "Para empezar", name: "Ensalada de La Caleta", description: "Brotes tiernos, tomate, atún, huevo y aceitunas", price: 9.5, image: "" },
+  { id: 102, category: "Para empezar", name: "Croquetas caseras", description: "De jamón ibérico, hechas al día (8 uds.)", price: 8.0, image: "" },
+  { id: 103, category: "Para empezar", name: "Pimientos de Padrón", description: "Fritos con sal en escamas", price: 7.5, image: "" },
+  { id: 104, category: "Para empezar", name: "Gambas al ajillo", description: "Salteadas con ajo, guindilla y aceite de oliva", price: 12.5, image: "" },
 
-  // ---------------- ARROCES (especialidad) ----------------
-  { id: 201, category: "Arroces", name: "Paella valenciana", description: "// TODO: carta real — confirmar ingredientes y precio", price: 0, image: "", popular: true },
-  { id: 202, category: "Arroces", name: "Arroz del senyoret", description: "// TODO: carta real", price: 0, image: "", popular: true },
-  { id: 203, category: "Arroces", name: "Arroz negro", description: "// TODO: carta real", price: 0, image: "" },
-  { id: 204, category: "Arroces", name: "Arroz caldoso de bogavante", description: "// TODO: carta real", price: 0, image: "", popular: true },
-  { id: 205, category: "Arroces", name: "Arroz a banda", description: "// TODO: carta real", price: 0, image: "" },
-  { id: 206, category: "Arroces", name: "Paella de verduras", description: "// TODO: carta real", price: 0, image: "" },
+  // ---------------- ARROCES (especialidad · precio por persona, mínimo 2) ----------------
+  { id: 201, category: "Arroces", name: "Paella valenciana", description: "Pollo, conejo, judía verde y garrofó", price: 15.0, image: "", popular: true },
+  { id: 202, category: "Arroces", name: "Arroz del senyoret", description: "Pescado, marisco pelado y pimientos rojos", price: 17.0, image: "", popular: true },
+  { id: 203, category: "Arroces", name: "Arroz negro", description: "Calamar, su tinta y pimiento verde", price: 16.0, image: "" },
+  { id: 204, category: "Arroces", name: "Arroz caldoso de bogavante", description: "Medio bogavante por comensal", price: 22.0, image: "", popular: true },
+  { id: 205, category: "Arroces", name: "Arroz a banda", description: "Trocitos de calamar y pimientos rojos", price: 16.0, image: "" },
+  { id: 206, category: "Arroces", name: "Paella de verduras", description: "Verduras de temporada a la brasa", price: 14.0, image: "" },
 
   // ---------------- DE LA BRASA ----------------
-  { id: 301, category: "De la brasa", name: "Solomillo", description: "// TODO: carta real", price: 0, image: "" },
-  { id: 302, category: "De la brasa", name: "Entrecot", description: "// TODO: carta real", price: 0, image: "" },
-  { id: 303, category: "De la brasa", name: "Costillas", description: "// TODO: carta real", price: 0, image: "" },
+  { id: 301, category: "De la brasa", name: "Solomillo de ternera", description: "A la brasa con guarnición", price: 19.5, image: "" },
+  { id: 302, category: "De la brasa", name: "Entrecot", description: "Con patatas y pimientos", price: 21.0, image: "" },
+  { id: 303, category: "De la brasa", name: "Costillas de cerdo", description: "Adobadas y hechas al fuego", price: 15.5, image: "" },
 
   // ---------------- DEL MAR ----------------
-  { id: 401, category: "Del mar", name: "Pescado del día", description: "// TODO: carta real", price: 0, image: "" },
-  { id: 402, category: "Del mar", name: "Calamares", description: "// TODO: carta real", price: 0, image: "" },
+  { id: 401, category: "Del mar", name: "Pescado del día", description: "Según lonja — consúltanos", price: 18.0, image: "" },
+  { id: 402, category: "Del mar", name: "Calamares a la andaluza", description: "Rebozados y fritos con limón", price: 14.5, image: "" },
 
   // ---------------- POSTRES ----------------
-  { id: 501, category: "Postres", name: "Flan casero", description: "// TODO: carta real", price: 0, image: "" },
-  { id: 502, category: "Postres", name: "Tarta del día", description: "// TODO: carta real", price: 0, image: "" },
+  { id: 501, category: "Postres", name: "Flan casero", description: "Con nata montada", price: 5.0, image: "" },
+  { id: 502, category: "Postres", name: "Tarta del día", description: "Pregunta por la elaboración de hoy", price: 5.5, image: "" },
 
   // ---------------- BEBIDAS ----------------
-  { id: 601, category: "Refrescos & aguas", name: "Agua / Refresco", description: "// TODO: carta real", price: 0, image: "" },
-  { id: 602, category: "Cervezas", name: "Caña / Botellín", description: "// TODO: carta real", price: 0, image: "" },
-  { id: 603, category: "Aperitivos", name: "Vermut de la casa", description: "// TODO: carta real", price: 0, image: "" },
+  { id: 601, category: "Refrescos & aguas", name: "Agua / Refresco", description: "Agua mineral, refrescos y zumos", price: 2.5, image: "" },
+  {
+    id: 602, category: "Cervezas", name: "Cerveza", description: "De barril y en botella", price: 2.2, image: "",
+    requiredChoice: { name: "Formato", options: [{ name: "Caña", price: 0 }, { name: "Botellín", price: 0.3 }] }
+  },
+  { id: 603, category: "Aperitivos", name: "Vermut de la casa", description: "Rojo con hielo, naranja y aceituna", price: 3.5, image: "" },
 
   // ---------------- VINOS ----------------
-  { id: 701, category: "Vinos blancos", name: "Blanco de la casa", description: "// TODO: carta real", price: 0, image: "" },
-  { id: 702, category: "Vinos tintos", name: "Tinto de la casa", description: "// TODO: carta real", price: 0, image: "" },
-  { id: 703, category: "Vinos rosados", name: "Rosado de la casa", description: "// TODO: carta real", price: 0, image: "" },
+  {
+    id: 701, category: "Vinos blancos", name: "Blanco de la casa", description: "D.O. La Mancha", price: 2.5, image: "",
+    requiredChoice: { name: "Formato", options: [{ name: "Copa", price: 0 }, { name: "Botella", price: 9.5 }] }
+  },
+  {
+    id: 702, category: "Vinos tintos", name: "Tinto de la casa", description: "Crianza D.O. Valdepeñas", price: 2.7, image: "",
+    requiredChoice: { name: "Formato", options: [{ name: "Copa", price: 0 }, { name: "Botella", price: 10.3 }] }
+  },
+  {
+    id: 703, category: "Vinos rosados", name: "Rosado de la casa", description: "Fresco y afrutado", price: 2.5, image: "",
+    requiredChoice: { name: "Formato", options: [{ name: "Copa", price: 0 }, { name: "Botella", price: 9.5 }] }
+  },
 ];
 
 /**
@@ -299,8 +311,8 @@ export const MENU_DATA: Product[] = [
 // FOTO: su web no tiene fotos individuales buenas de cada arroz → siguen en placeholder.
 // Recomendación: una foto cenital de cada arroz en la paella mejoraría mucho esta sección.
 export const ARROCES_DATA: Dish[] = [
-  { name: "Arroz del senyoret", description: "Pescado, marisco pelado y pimientos rojos", image: "" /* FOTO: arroz del senyoret */ },
-  { name: "Arroz a banda", description: "Trocitos de calamar y pimientos rojos", image: "" /* FOTO: arroz a banda */ },
-  { name: "Arroz negro", description: "Calamar, su tinta y pimiento verde", image: "" /* FOTO: arroz negro */ },
-  { name: "Arroz con bogavante", description: "Medio bogavante y pimientos", image: "" /* FOTO: arroz con bogavante */ },
+  { name: "Arroz del senyoret", description: "Pescado, marisco pelado y pimientos rojos", image: "/img/arroz-1.jpg" /* FOTO template (stock) — sustituir por foto real del plato */ },
+  { name: "Paella de marisco", description: "Gambas, mejillones y almejas al azafrán", image: "/img/arroz-2.jpg" /* FOTO template (stock) — sustituir por foto real del plato */ },
+  { name: "Arroz a banda", description: "Sofrito, pimiento rojo y marisco", image: "/img/arroz-3.jpg" /* FOTO template (stock) — sustituir por foto real del plato */ },
+  { name: "Arroz caldoso de marisco", description: "Meloso, con gambas y verduras", image: "/img/arroz-4.jpg" /* FOTO template (stock) — sustituir por foto real del plato */ },
 ];

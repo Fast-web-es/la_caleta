@@ -213,7 +213,7 @@ const RestaurantTemplate: React.FC = () => {
         <Eyebrow center>La Carta</Eyebrow>
         <SectionTitle title={CONFIG.ui.sections.menuTitle} center />
         <p className="font-sans text-[13px] italic text-[#8A7550] -mt-3 mb-10">
-          Carta orientativa · platos y precios pendientes de confirmar
+          Carta orientativa · precios sujetos a variación
         </p>
       </div>
 
@@ -690,11 +690,16 @@ const RestaurantTemplate: React.FC = () => {
         <a
           href="#arroces"
           onClick={(e) => scrollToSection(e, 'arroces')}
-          className="shrink-0 hover:opacity-80 transition-opacity flex flex-col leading-none"
+          className="shrink-0 hover:opacity-80 transition-opacity flex items-center"
           aria-label="Inicio Restaurante La Caleta"
         >
-          <span className="font-display text-2xl md:text-3xl text-brand-red leading-none">La Caleta</span>
-          <span className="font-sans text-[9px] md:text-[10px] uppercase tracking-[0.3em] text-[#9A8A73] mt-0.5">Arrocería · Ciudad Real</span>
+          <img
+            src="/logo.png"
+            alt="La Caleta · Arrocería"
+            width={265}
+            height={128}
+            className="h-10 md:h-12 w-auto"
+          />
         </a>
 
         <nav className="hidden lg:flex items-center gap-7 shrink-0 font-sans text-[13px] uppercase tracking-[0.15em]">
@@ -783,7 +788,7 @@ const RestaurantTemplate: React.FC = () => {
         </div>
       )}
 
-      <TaglineStrip />
+      {TaglineStrip()}
 
       <main>
         {/* ================= HERO ================= */}
@@ -842,25 +847,25 @@ const RestaurantTemplate: React.FC = () => {
         {/* Orden: Arroces → Carta → Para llevar → Nosotros → Reservas → Contacto → Footer.
             OrnamentDivider solo entre secciones crema consecutivas (el cambio de color
             crema↔espresso ya separa por sí mismo). */}
-        <ArrocesSection />
+        {ArrocesSection()}
 
-        <OrnamentDivider />
+        {OrnamentDivider()}
 
-        <MenuSection />
+        {MenuSection()}
 
-        <TakeawaySection />
+        {TakeawaySection()}
 
-        <NosotrosSection />
+        {NosotrosSection()}
 
-        <OrnamentDivider />
+        {OrnamentDivider()}
 
         {CONFIG.business.reservations?.enabled && <ReservationsSection />}
 
-        <OrnamentDivider />
+        {OrnamentDivider()}
 
         <ContactSection />
 
-        <AppFooter />
+        {AppFooter()}
       </main>
     </div>
   );

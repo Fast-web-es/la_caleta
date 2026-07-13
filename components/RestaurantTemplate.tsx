@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Instagram, Facebook, MapPin, Mail, Phone,
   X, Menu, ImageIcon, Clock, ShoppingBag
@@ -41,18 +41,6 @@ const TripAdvisorIcon: React.FC<{ size?: number }> = ({ size = 18 }) => (
 const scrollToSection = (e: React.MouseEvent, id: string) => {
   e.preventDefault();
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-};
-
-const scrollToSectionAfterDrawer = (id: string) => {
-  let tries = 0;
-  const go = () => {
-    if (document.body.style.position === 'fixed' && tries++ < 40) {
-      requestAnimationFrame(go);
-      return;
-    }
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-  requestAnimationFrame(go);
 };
 
 // Etiqueta "eyebrow": versalita terracota con una regla corta (sustituye a los
@@ -102,6 +90,10 @@ const RestaurantTemplate: React.FC = () => {
   const [activeTab, setActiveTab] = useState<SuperCategory>('CARTA');
   const [expandedSubcats, setExpandedSubcats] = useState<Set<string>>(new Set(['Arroces']));
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  // Sección a la que navegar cuando se cierre el drawer (los enlaces del menú
+  // móvil la apuntan aquí; el scroll se hace en el cleanup del scroll-lock,
+  // cuando el body ya no está fijado).
+  const pendingSection = useRef<string | null>(null);
 
   // Scroll lock del drawer mobile (position:fixed para no resetear scroll en iOS).
   useEffect(() => {
@@ -118,7 +110,15 @@ const RestaurantTemplate: React.FC = () => {
       document.body.style.top = '';
       document.body.style.left = '';
       document.body.style.right = '';
-      window.scrollTo(0, scrollY);
+      // Restauración instantánea: con html{scroll-behavior:smooth} un scrollTo
+      // animado compite con el scrollIntoView del enlace pulsado y puede dejar
+      // la página en una posición aleatoria (a veces arriba del todo).
+      window.scrollTo({ top: scrollY, left: 0, behavior: 'instant' });
+      if (pendingSection.current) {
+        const id = pendingSection.current;
+        pendingSection.current = null;
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      }
       document.removeEventListener('keydown', onKey);
     };
   }, [mobileNavOpen]);
@@ -275,7 +275,7 @@ const RestaurantTemplate: React.FC = () => {
                   {items.map(p => (
                     <li key={p.id}>
                       <div className="flex items-baseline gap-3">
-                        <h4 className="font-display text-lg md:text-xl text-[#3A2C20] shrink-0">
+                        <h4 className="font-display text-lg md:text-xl text-[#3A2C20] min-w-0">
                           {p.name}
                         </h4>
                         <span className="flex-1 border-b border-dotted border-[#C9B48C] mb-[6px] min-w-[20px]" aria-hidden="true" />
@@ -367,10 +367,13 @@ const RestaurantTemplate: React.FC = () => {
 
   // ============== RESERVAS ==============
   const ReservationsSection = () => {
+    // Fecha en horario LOCAL ('en-CA' da YYYY-MM-DD): con toISOString (UTC),
+    // entre las 00:00 y las 02:00 hora peninsular la fecha por defecto y el
+    // mínimo del calendario marcaban el día anterior.
     const today = new Date();
-    const todayStr = today.toISOString().split('T')[0];
+    const todayStr = today.toLocaleDateString('en-CA');
     const maxDate = new Date(today.getTime() + CONFIG.business.reservations.maxDaysAhead * 86400000)
-      .toISOString().split('T')[0];
+      .toLocaleDateString('en-CA');
 
     const [date, setDate] = useState(todayStr);
     const [time, setTime] = useState('');
@@ -510,7 +513,7 @@ const RestaurantTemplate: React.FC = () => {
 
             <textarea placeholder={CONFIG.ui.reservations.fields.notes} value={notes} onChange={e => setNotes(e.target.value)} rows={3} className={inputCls} />
 
-            <button type="submit" disabled={!canSubmit} className={`${btnPrimary} w-full text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-brand-red`}>
+            <button type="submit" disabled={!canSubmit} className={`${btnPrimary} !whitespace-normal w-full text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-brand-red`}>
               {CONFIG.ui.reservations.cta}
             </button>
 
@@ -751,9 +754,8 @@ const RestaurantTemplate: React.FC = () => {
                   href={link.href}
                   onClick={(e) => {
                     e.preventDefault();
-                    const id = link.href.slice(1);
+                    pendingSection.current = link.href.slice(1);
                     setMobileNavOpen(false);
-                    scrollToSectionAfterDrawer(id);
                   }}
                   className="group flex items-center justify-between font-display text-3xl text-[#3A2C20] border-b border-[#E0CDA8] py-4 hover:text-brand-red transition-colors"
                 >

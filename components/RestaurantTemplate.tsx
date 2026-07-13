@@ -22,7 +22,13 @@ const btnOutline =
 const cardCls =
   'rounded-lg border border-[#E4D5B4] bg-[#FCF7EC] shadow-[0_18px_44px_-24px_rgba(58,44,32,0.45)]';
 const inputCls =
-  'w-full rounded-md border border-[#D8C4A0] bg-white px-4 py-3 font-sans text-[#3A2C20] placeholder:text-[#9A8A73] focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/25 transition';
+  'w-full min-w-0 max-w-full box-border rounded-md border border-[#D8C4A0] bg-white px-4 py-3 font-sans text-[#3A2C20] placeholder:text-[#9A8A73] focus:outline-none focus:border-brand-red focus:ring-2 focus:ring-brand-red/25 transition';
+// Los inputs date/time nativos de iOS/Safari tienen un ancho mínimo intrínseco
+// que ignora width:100% y se sale del contenedor en móvil. appearance-none los
+// hace comportarse como un input normal que sí encoge; el selector de calendario
+// se sigue abriendo al tocar. Alineamos el valor a la izquierda (iOS lo centra).
+const dateInputCls =
+  `${inputCls} appearance-none [&::-webkit-date-and-time-value]:text-left [&::-webkit-date-and-time-value]:min-h-[1.5em]`;
 
 const telHref = `tel:${CONFIG.business.telephone.replace(/\s/g, '')}`;
 
@@ -479,18 +485,18 @@ const RestaurantTemplate: React.FC = () => {
 
           <form onSubmit={handleReserve} className={`${cardCls} p-6 md:p-10 space-y-6`}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <label className="flex flex-col gap-2">
+              <label className="flex flex-col gap-2 min-w-0">
                 <span className="font-sans text-sm font-semibold text-[#5C4A38]">{CONFIG.ui.reservations.fields.date}</span>
-                <input type="date" value={date} onChange={e => { setDate(e.target.value); setTime(''); }} min={todayStr} max={maxDate} required className={inputCls} />
+                <input type="date" value={date} onChange={e => { setDate(e.target.value); setTime(''); }} min={todayStr} max={maxDate} required className={dateInputCls} />
               </label>
-              <label className="flex flex-col gap-2">
+              <label className="flex flex-col gap-2 min-w-0">
                 <span className="font-sans text-sm font-semibold text-[#5C4A38]">{CONFIG.ui.reservations.fields.time}</span>
                 <select value={time} onChange={e => setTime(e.target.value)} required disabled={noSlots} className={`${inputCls} disabled:opacity-50 disabled:cursor-not-allowed`}>
                   <option value="">--:--</option>
                   {availableSlots.map(slot => <option key={slot} value={slot}>{slot}</option>)}
                 </select>
               </label>
-              <label className="flex flex-col gap-2">
+              <label className="flex flex-col gap-2 min-w-0">
                 <span className="font-sans text-sm font-semibold text-[#5C4A38]">{CONFIG.ui.reservations.fields.people}</span>
                 <select value={people} onChange={e => setPeople(Number(e.target.value))} className={inputCls}>
                   {Array.from({ length: CONFIG.business.reservations.maxPartySize }, (_, i) => i + 1).map(n => (
